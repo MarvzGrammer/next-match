@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client/extension";
+import { PrismaClient } from "@prisma/client";
 import { membersData } from "./membersData";
 import { hash } from "bcryptjs";
 
@@ -9,13 +9,13 @@ async function seedMembers() {
     return membersData.map(async member => prisma.user.create({
         data: {
             email: member.email,
-            emailVerivied: new Date(),
+            emailVerified: new Date(),
             name: member.name,
             passwordHash: await hash('password', 10),
             image: member.image,
             member: {
                 create: {
-                    datOfBirth: new Date(member.dateOfBirth),
+                    dateOfBirth: new Date(member.dateOfBirth),
                     gender: member.gender,
                     name: member.name,
                     created: new Date(member.created),
